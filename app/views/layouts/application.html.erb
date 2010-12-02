@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Items: <%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'default' %>
+</head>
+<body>
+	
+    <div id="page">
+      <div id="header">Dave Shop</div>
+
+      <div id="nav">
+        <div style="float:left;text-align:left">
+		
+          <%= link_to_unless_current "Home",  :controller => "items", 
+                                                 :action => "index" %> | 
+          <%= link_to_unless_current "About",:controller => "site", 
+                                                 :action => "about" %> |
+          <%= link_to_unless_current "Contact",:controller => "site", 
+                                                 :action => "contact" %> |
+	  <%= link_to_unless_current "Cart",  :controller => "cart", 
+                                                 :action => "index" %> 
+        </div>
+        <div style="text-align:right">
+        
+| 
+          <% unless session[:login] %>
+            <%= link_to_unless_current "Admin", :controller => "user", 
+                                                   :action => "admin_login" %>
+          <% else %>
+            <%= link_to_unless_current "Logout", :controller => "user", 
+                                                    :action => "logout" %>
+          <% end %>
+        </div>
+      </div>
+      <div id="content">
+      	<% if flash[:notice] -%>
+        	<p style="color: green"><%= flash[:notice] %></p>
+		<% end -%>
+        <%= yield %>
+      </div>
+    </div>
+
+</body>
+</html>
+
